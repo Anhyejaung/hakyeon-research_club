@@ -50,3 +50,4 @@ GitHub를 활용하여 다음과 같은 자료를 관리해 볼 계획입니다.
 ## 내가 한 
 
 GitHub에서 파일 수정과 Commit 기록 확인을 실습했습니다.
+practice-branch에서 README 수정 실습을 진행했습니다.
