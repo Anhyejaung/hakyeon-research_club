@@ -1,0 +1,178 @@
+Table file_location {
+  파일위치ID char [pk]
+  파일명 varchar
+  시트명 varchar
+  품목 varchar
+}
+
+Table working_env {
+  코팅라인번호 int
+  작업시간대 varchar
+
+  indexes {
+    (코팅라인번호, 작업시간대) [pk]
+  }
+}
+
+Table experiment_env {
+  실험환경ID varchar [pk]
+  파일위치ID char
+
+  실험열 varchar
+  행번호 int
+
+  제조일 date
+  검사일 date
+  에이징시간 int
+
+  사이즈 varchar
+  두께 varchar
+  필름폭 varchar
+  권취길이 varchar
+  생산수량 varchar
+
+  점착제명 varchar
+  점착비율 varchar
+  EA varchar
+
+  경화제명 varchar
+  경화제비율 varchar
+
+  목수 varchar
+  FILM varchar
+  테스트판 varchar
+  도포량 varchar
+
+  점착력_이상 varchar
+  값수정_메모 varchar
+
+  코팅라인번호 int
+  작업시간대 varchar
+}
+
+Table material_master {
+  재료ID bigint [pk, increment]
+  재료명 varchar
+  재료구분 varchar // 점착제 / 용제 / 미확정 / 기타
+  사용여부 char
+  비고 varchar
+  생성일시 datetime
+
+  indexes {
+    재료명 [unique]
+  }
+}
+
+Table adhesive_details_list {
+  점착제목록ID bigint [pk, increment]
+
+  실험환경ID varchar
+
+  순번 int
+  원본순번 int
+
+  점착제명 varchar
+  점착제비율 varchar
+
+  점착제출처 varchar // 명시성분
+  처리유형 varchar // 명시성분전체매칭 / 묵시EA처리 / 점착비율만매칭
+
+  생성일시 datetime
+
+  indexes {
+    (실험환경ID, 원본순번, 점착제명) [unique]
+    실험환경ID
+    점착제명
+  }
+}
+
+Table solvent_details_list {
+  용제목록ID bigint [pk, increment]
+
+  실험환경ID varchar
+
+  순번 int
+  원본순번 int
+
+  용제명 varchar
+  용제비율 varchar
+
+  용제출처 varchar // 명시성분 / 묵시EA
+  처리유형 varchar // 명시성분전체매칭 / 묵시EA처리
+
+  생성일시 datetime
+
+  indexes {
+    (실험환경ID, 원본순번, 용제명) [unique]
+    실험환경ID
+    용제명
+  }
+}
+
+Table component_parse_error_list {
+  오류ID bigint [pk, increment]
+
+  실험환경ID varchar
+
+  성분개수 int
+  점착비율개수 int
+  EA개수 int
+  전체비율개수 int
+
+  오류구분 varchar // 오류_개수불일치 / 오류_성분없음 / 분류검수필요
+  오류내용 varchar
+
+  생성일시 datetime
+
+  indexes {
+    (실험환경ID, 오류구분) [unique]
+    실험환경ID
+    오류구분
+  }
+}
+
+Table hardener_details_list {
+  경화제목록ID varchar [pk]
+  실험환경ID varchar
+  경화제명 varchar
+  경화제비율 varchar
+}
+
+Table adhesion_value_list {
+  점착력목록ID varchar [pk]
+  실험환경ID varchar
+  점착력번호 bigint
+  점착력 decimal
+}
+
+Table smilesadhesive {
+  유효성 varchar
+  업체명 varchar
+  점착제명 varchar
+  화학물질명 varchar
+  CASNo varchar
+  화학구조 text
+  화학식 varchar
+  SMILESCODE varchar
+}
+
+Table smileshardener {
+  유효성 varchar
+  업체명 varchar
+  경화제명 varchar
+  화학물질명 varchar
+  CASNo varchar
+  화학구조 text
+  화학식 varchar
+  SMILESCODE varchar
+}
+
+Ref: experiment_env.파일위치ID > file_location.파일위치ID
+Ref: experiment_env.(코팅라인번호, 작업시간대) > working_env.(코팅라인번호, 작업시간대)
+
+Ref: adhesive_details_list.실험환경ID > experiment_env.실험환경ID
+Ref: solvent_details_list.실험환경ID > experiment_env.실험환경ID
+Ref: component_parse_error_list.실험환경ID > experiment_env.실험환경ID
+
+Ref: hardener_details_list.실험환경ID > experiment_env.실험환경ID
+Ref: adhesion_value_list.실험환경ID > experiment_env.실험환경ID
