@@ -1,0 +1,14 @@
+name: GitHub Actions Practice
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  practice:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Hello
+        run: echo "GitHub Actions 실습 성공"
