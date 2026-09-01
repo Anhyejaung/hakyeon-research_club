@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카페 좌석 혼잡도 분류 AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>카페 좌석 혼잡도 분류 AI</h1>
+
+  <p>
+    카페 내부 사진을 바탕으로 좌석 혼잡 상태를
+    여유, 보통, 혼잡의 세 단계로 분류하는 AI 프로젝트입니다.
+  </p>
+  <section>
+  <h2>AI 분류 기준</h2>
+  <ul>
+    <li>여유</li>
+    <li>보통</li>
+    <li>혼잡</li>
+  </ul>
+</section>
+<section>
+  <h2>AI 학습 과정</h2>
+  <p>
+    Google Teachable Machine을 사용하여
+    여유, 보통, 혼잡 세 개의 클래스를 만들고
+    각 상황에 맞는 카페 이미지를 학습 데이터로 사용했습니다.
+    1차 학습에서는 각 클래스별로 12장의 이미지를 사용하여
+    총 36장의 데이터로 모델을 학습했습니다.
+  </p>
+</section>
+<section>
+  <h2>오분류 사례</h2>
+  <p>
+    <img src="images/result_before.png" alt="개선 전 오분류 결과">
+    테스트 과정에서 실제로는 혼잡한 카페 사진이었지만
+    AI가 보통 99%로 잘못 분류하는 문제가 발생했습니다.
+    해당 사진은 카페 공간이 넓어 사진 속에 빈 공간이 많이 보였습니다.
+  </p>
+</section>
+<section>
+  <h2>모델 개선</h2>
+  <p>
+    <img src="images/result_after.png" alt="개선 후 혼잡 분류 결과">
+    오분류를 줄이기 위해 넓은 공간이면서 손님이 많은 혼잡 카페 사진 4장을
+    혼잡 클래스에 추가한 뒤 모델을 다시 학습했습니다.
+    그 결과 같은 테스트 사진을 혼잡 95%로 올바르게 분류했습니다.
+  </p>
+</section>
+<section>
+  <h2>개선 전/후 결과 비교</h2>
+
+  <table>
+    <tr>
+      <th>구분</th>
+      <th>개선 전</th>
+      <th>개선 후</th>
+    </tr>
+    <tr>
+      <td>실제 분류</td>
+      <td>혼잡</td>
+      <td>혼잡</td>
+    </tr>
+    <tr>
+      <td>AI 예측 결과</td>
+      <td>보통 99%</td>
+      <td>혼잡 95%</td>
+    </tr>
+    <tr>
+      <td>분류 성공 여부</td>
+      <td>실패</td>
+      <td>성공</td>
+    </tr>
+  </table>
+</section>
+<section>
+  <h2>모델 내보내기</h2>
+  <p>
+    Teachable Machine에서 학습한 모델을 TensorFlow.js 등의 형식으로
+    내보낼 수 있는 기능을 확인했습니다.
+  </p>
+
+  <img src="images/model_export.png" alt="Teachable Machine 모델 내보내기 화면">
+</section>
+
+<section>
+  <h2>관련 링크</h2>
+  
+
+  <p>
+    이번 프로젝트에서 사용한 노코드 AI 도구입니다.
+  </p>
+
+  <p>
+    <a href="https://teachablemachine.withgoogle.com/" target="_blank">
+      Google Teachable Machine 바로가기
+    </a>
+  </p>
+
+  <p>
+    <a href="https://teachablemachine.withgoogle.com/models/XjN1o_3mK" target="_blank">
+      내가 만든 카페 혼잡도 AI 모델 바로가기
+    </a>
+  </p>
+</section>
+<section>
+  <h2>제작자 및 활동 소개</h2>
+  <p>제작자: 안혜정</p>
+  <p>학부연구동아리 8주차 활동으로 제작한 웹페이지입니다.</p>
+</section>
+</body>
+</html>
